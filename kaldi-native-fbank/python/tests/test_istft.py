@@ -3,6 +3,7 @@
 # Copyright (c)  2025  Xiaomi Corporation (authors: Fangjun Kuang)
 
 
+import pytest
 import torch
 
 import kaldi_native_fbank as knf
@@ -70,29 +71,15 @@ def _test_istft_impl(n_fft, normalized, window_type, center):
     )
 
 
-def test_istft():
-    n_fft_list = [6, 10, 400, 1000]
-    n_fft_list += [64, 128, 256, 512, 1024, 2048, 4096]
-    normalized_list = [False, True]
-    window_type_list = ["hann", "", "hann2"]
-    center_list = [True]
-
-    for n_fft in n_fft_list:
-        for normalized in normalized_list:
-            for window_type in window_type_list:
-                for center in center_list:
-                    _test_istft_impl(
-                        n_fft=n_fft,
-                        normalized=normalized,
-                        window_type=window_type,
-                        center=center,
-                    )
-
-
-def main():
+@pytest.mark.parametrize("n_fft", [6, 10, 400, 1000, 64, 128, 256, 512, 1024, 2048, 4096])
+@pytest.mark.parametrize("normalized", [False, True])
+@pytest.mark.parametrize("window_type", ["hann", "", "hann2"])
+@pytest.mark.parametrize("center", [True])
+def test_istft(n_fft, normalized, window_type, center):
     torch.manual_seed(20250308)
-    test_istft()
-
-
-if __name__ == "__main__":
-    main()
+    _test_istft_impl(
+        n_fft=n_fft,
+        normalized=normalized,
+        window_type=window_type,
+        center=center,
+    )

@@ -2,6 +2,7 @@
 #
 # Copyright (c)  2025 (authors: Bangwen He)
 
+import pytest
 import torch
 import torch.nn as nn
 import kaldi_native_fbank as knf
@@ -161,19 +162,9 @@ def test_vocos_istft_impl(num_frames=768, n_fft=1024, hop_length=256, win_length
     print("=" * 30)
 
 
-def test_vocos_istft():
+@pytest.mark.parametrize("num_frames", [256, 512, 768, 1024])
+@pytest.mark.parametrize("n_fft", [512, 1024])
+@pytest.mark.parametrize("hop_length", [128, 256])
+def test_vocos_istft(num_frames, n_fft, hop_length):
     torch.manual_seed(20250428)
-    num_frames_list = [256, 512, 768, 1024]
-    n_fft_list = [512, 1024]
-    hop_list = [128, 256]
-
-    for num_frames in num_frames_list:
-        for n_fft in n_fft_list:
-            for hop in hop_list:
-                test_vocos_istft_impl(
-                    num_frames=num_frames, n_fft=n_fft, hop_length=hop, win_length=n_fft
-                )
-
-
-if __name__ == "__main__":
-    test_vocos_istft()
+    test_vocos_istft_impl(num_frames=num_frames, n_fft=n_fft, hop_length=hop_length, win_length=n_fft)

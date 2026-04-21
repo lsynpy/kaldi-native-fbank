@@ -3,9 +3,9 @@
 # Copyright (c)  2025  Xiaomi Corporation (authors: Fangjun Kuang)
 
 
-import torch
-
 import kaldi_native_fbank as knf
+import pytest
+import torch
 
 
 def test_stft_config():
@@ -70,30 +70,15 @@ def _test_stft_impl(n_fft, normalized, window_type="", center=False):
     print(f"Passed: n_fft={n_fft}, normalized={normalized}, window_type={window_type}")
 
 
-def test_stft():
-    n_fft_list = [6, 10, 400, 1000]
-    n_fft_list += [8, 64, 128, 256, 512, 1024, 2048, 4096]
-    normalized_list = [True, False]
-    window_type_list = ["", "hann", "hann2"]
-    center_list = [True, False]
-
-    for n_fft in n_fft_list:
-        for normalized in normalized_list:
-            for window_type in window_type_list:
-                for center in center_list:
-                    _test_stft_impl(
-                        n_fft=n_fft,
-                        normalized=normalized,
-                        window_type=window_type,
-                        center=center,
-                    )
-
-
-def main():
+@pytest.mark.parametrize("n_fft", [6, 10, 400, 1000, 8, 64, 128, 256, 512, 1024, 2048, 4096])
+@pytest.mark.parametrize("normalized", [True, False])
+@pytest.mark.parametrize("window_type", ["", "hann", "hann2"])
+@pytest.mark.parametrize("center", [True, False])
+def test_stft(n_fft, normalized, window_type, center):
     torch.manual_seed(20250308)
-    test_stft_config()
-    test_stft()
-
-
-if __name__ == "__main__":
-    main()
+    _test_stft_impl(
+        n_fft=n_fft,
+        normalized=normalized,
+        window_type=window_type,
+        center=center,
+    )

@@ -4,7 +4,7 @@ import kaldi_native_fbank as knf
 import numpy as np
 
 
-def main():
+def test_online_raw_audio_samples():
     sampling_rate = 1000
     samples_per_frame = 30
 
@@ -26,7 +26,3 @@ def main():
         f = np.array(f)
         expected = np.arange(samples_per_frame, dtype=np.float32) + samples_per_frame * i
         assert (f - expected).sum() == 0, (f, expected)
-
-
-if __name__ == "__main__":
-    main()

@@ -72,7 +72,8 @@ def compute_fbank(samples):
     return np.log(f)
 
 
-def main():
+def test_feature_demo():
+    np.random.seed(202250929)
     samples = np.random.uniform(low=-1, high=1, size=(sample_rate * num_seconds,))
     print(samples.shape)
 
@@ -101,9 +102,3 @@ def main():
     print(np.abs(np.array(feature_frame_0) - np.array(f0)).max())
     print(np.abs(np.array(feature_frame_1) - np.array(f1)).max())
     print(np.abs(np.array(feature_frame_2) - np.array(f2)).max())
-
-
-if __name__ == "__main__":
-    np.random.seed(202250929)
-
-    main()

@@ -21,11 +21,3 @@ def test_hann_window():
 
     t = torch.hann_window(n, periodic=True)
     assert torch.allclose(w, t, atol=1e-6), (w - t).abs().max()
-
-
-def main():
-    test_hann_window()
-
-
-if __name__ == "__main__":
-    main()

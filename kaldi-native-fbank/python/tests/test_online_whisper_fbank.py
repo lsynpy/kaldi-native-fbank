@@ -7,7 +7,8 @@ import kaldi_native_fbank as knf
 import torch
 
 
-def test():
+def test_online_whisper_fbank():
+    torch.manual_seed(20240112)
     opts = knf.WhisperFeatureOptions()
 
     # Use 128 for whisper large v3
@@ -40,12 +41,3 @@ def test():
 
     assert mel.shape == (1, opts.dim, 3000), mel.shape
     # Now you can input 'mel' to whisper.encoder model
-
-
-def main():
-    test()
-
-
-if __name__ == "__main__":
-    torch.manual_seed(20240112)
-    main()

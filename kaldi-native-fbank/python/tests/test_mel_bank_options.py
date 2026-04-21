@@ -100,16 +100,3 @@ def test_pickle():
 
     opts2 = pickle.loads(data)
     assert str(opts) == str(opts2)
-
-
-def main():
-    test_default()
-    test_set_get()
-    test_from_empty_dict()
-    test_from_dict_partial()
-    test_from_dict_full_and_as_dict()
-    test_pickle()
-
-
-if __name__ == "__main__":
-    main()

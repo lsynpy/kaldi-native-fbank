@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-
 import kaldi_native_fbank as knf
 import kaldifeat  # type: ignore
 import torch  # type: ignore
 
 
-def main():
+def test_online_mfcc():
+    torch.manual_seed(20240603)
     sampling_rate = 16000
     samples = torch.randn(sampling_rate * 10)
 
@@ -35,9 +35,4 @@ def main():
         f1 = online_mfcc.get_frame(i)
         f2 = torch.from_numpy(mfcc.get_frame(i))
         assert torch.allclose(f1, f2, atol=1e-3), (i, (f1 - f2).abs().max(), f1, f2)
-
-
-if __name__ == "__main__":
-    torch.manual_seed(20240603)
-    main()
     print("success")
