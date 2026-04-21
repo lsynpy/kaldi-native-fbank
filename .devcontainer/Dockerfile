@@ -38,6 +38,15 @@ RUN pip install uv
 # Configure uv to use USTC mirror
 ENV UV_INDEX_URL=https://pypi.mirrors.ustc.edu.cn/simple/
 
+# Create venv outside workspace (persists through workspace mount)
+RUN uv venv --seed /opt/venv && \
+    uv pip install --python /opt/venv/bin/python numpy pytest cmake && \
+    uv pip install --python /opt/venv/bin/python torch==2.4.0+cpu -f https://download.pytorch.org/whl/torch/ && \
+    uv pip install --python /opt/venv/bin/python kaldifeat==1.25.4.dev20240725+cpu.torch2.4.0 -f https://csukuangfj.github.io/kaldifeat/cpu.html
+
+# Verify installation
+RUN /opt/venv/bin/python -c "import torch; print('torch ok:', torch.__version__)"
+
 # Set fish as default shell
 RUN chsh -s /usr/bin/fish root
 SHELL ["/usr/bin/fish", "-c"]
@@ -47,11 +56,8 @@ RUN mkdir -p /root/.config/fish && \
     echo 'set -x UV_INDEX_URL https://pypi.mirrors.ustc.edu.cn/simple/' >> /root/.config/fish/config.fish && \
     echo 'set -x PYTHONDONTWRITEBYTECODE 1' >> /root/.config/fish/config.fish
 
-# Verify uv is available
-RUN uv --version
-
 # Set working directory
-WORKDIR /workspace
+WORKDIR /workspaces/kaldi-native-fbank
 
 # Keep container running
 CMD ["sleep", "infinity"]
