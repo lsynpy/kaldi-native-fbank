@@ -1,3 +1,5 @@
+# type: ignore
+# ruff: noqa: F401
 from _kaldi_native_fbank import (
     FbankOptions,
     FeatureWindowFunction,

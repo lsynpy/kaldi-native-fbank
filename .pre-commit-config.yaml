@@ -1,0 +1,112 @@
+# Tools must be pre-installed in the environment
+default_install_hook_types:
+  - pre-commit
+default_stages:
+  - pre-commit
+default_language_version:
+  python: python3.13
+
+repos:
+  - repo: local
+    hooks:
+      # C++ linting and formatting
+      - id: clang-format
+        name: clang-format
+        entry: clang-format
+        language: system
+        types: [c++]
+        args: [-i]
+
+      # Makefile line length check (max 108 chars)
+      - id: makefile-lint
+        name: makefile line length check
+        entry: >-
+          bash -c 'awk "length > 108 { print FILENAME \":\" NR \": line too long (\" length \")\"; exit 1 }" Makefile'
+        language: system
+        files: ^Makefile$
+        pass_filenames: false
+
+      # Python linting and formatting (fast, run on every commit)
+      - id: ruff-check
+        name: ruff check
+        entry: ruff check
+        language: system
+        types: [python]
+        args: [--fix]
+
+      - id: ruff-format
+        name: ruff format
+        entry: ruff format
+        language: system
+        types: [python]
+
+      # Type checking
+      - id: ty
+        name: ty
+        entry: ty check
+        language: system
+        types: [python]
+
+      # Config file validation (fast, run on every commit)
+      - id: check-yaml
+        name: check yaml
+        entry: check-yaml
+        language: system
+        types: [yaml]
+
+      - id: check-json
+        name: check json
+        entry: check-json
+        language: system
+        types: [json]
+
+      - id: check-toml
+        name: check toml
+        entry: check-toml
+        language: system
+        types: [toml]
+
+      # File hygiene (run on every commit)
+      - id: end-of-file-fixer
+        name: fix end of file
+        entry: end-of-file-fixer
+        language: system
+        types: [text]
+
+      - id: trailing-whitespace
+        name: trim trailing whitespace
+        entry: trailing-whitespace-fixer
+        language: system
+        types: [text]
+
+      - id: check-added-large-files
+        name: check for added large files
+        entry: check-added-large-files
+        language: system
+        args: [--maxkb=1000]
+
+      - id: check-merge-conflict
+        name: check for merge conflicts
+        entry: check-merge-conflict
+        language: system
+        types: [text]
+
+      - id: detect-private-key
+        name: detect private key
+        entry: detect-private-key
+        language: system
+        types: [text]
+
+      # Documentation checks (Rust-based, fast)
+      - id: rumdl
+        name: rumdl fmt
+        entry: rumdl fmt
+        language: system
+        types: [markdown]
+
+      - id: typos
+        name: check spelling (typos)
+        entry: typos
+        language: system
+        types: [text]
+        args: [-w]

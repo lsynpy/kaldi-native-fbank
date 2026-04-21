@@ -55,7 +55,7 @@ class RawAudioSamplesComputer {
   using Options = RawAudioSamplesOptions;
 
   explicit RawAudioSamplesComputer(const RawAudioSamplesOptions &opts)
-      : opts_(opts){};
+      : opts_(opts) {};
 
   int32_t Dim() const {
     return opts_.frame_opts.frame_length_ms * opts_.frame_opts.samp_freq / 1000;

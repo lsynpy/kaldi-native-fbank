@@ -21,11 +21,16 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
 ]
 dependencies = [
+    "cmake",
     "numpy",
+    "pyyaml",
+    "pytest",
+    "torch==2.4.0+cpu",
 ]
 
 [project.optional-dependencies]
 dev = [
+    "kaldifeat==1.25.4.dev20240725+cpu.torch2.4.0",
     "pytest>=7.0",
 ]
 
@@ -43,3 +48,7 @@ pythonpath = ["kaldi-native-fbank/python"]
 
 [tool.uv]
 index-url = "https://pypi.mirrors.ustc.edu.cn/simple/"
+find-links = [
+    "https://download.pytorch.org/whl/torch/",
+    "https://csukuangfj.github.io/kaldifeat/cpu.html",
+]

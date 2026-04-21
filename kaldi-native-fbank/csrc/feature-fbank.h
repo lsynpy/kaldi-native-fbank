@@ -21,11 +21,11 @@
 #ifndef KALDI_NATIVE_FBANK_CSRC_FEATURE_FBANK_H_
 #define KALDI_NATIVE_FBANK_CSRC_FEATURE_FBANK_H_
 
+#include <cstdint>
 #include <map>
+#include <sstream>
 #include <string>
 #include <vector>
-#include <cstdint>
-#include <sstream>
 
 #include "kaldi-native-fbank/csrc/feature-window.h"
 #include "kaldi-native-fbank/csrc/mel-computations.h"

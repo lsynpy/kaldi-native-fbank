@@ -2,7 +2,6 @@
 #
 # Copyright (c)  2023  Xiaomi Corporation (authors: Fangjun Kuang)
 
-import pickle
 
 import kaldi_native_fbank as knf
 import torch

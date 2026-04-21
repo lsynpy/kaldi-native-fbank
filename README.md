@@ -4,15 +4,15 @@ Kaldi-compatible online fbank feature extractor without external dependencies.
 
 Tested on the following architectures and operating systems:
 
-  - Linux
-  - macOS
-  - Windows
-  - Android
-  - x86
-  - arm
-  - aarch64
+- Linux
+- macOS
+- Windows
+- Android
+- x86
+- arm
+- aarch64
 
-# Usage
+## Usage
 
 See the following CMake-based speech recognition (i.e., text-to-speech) projects
 for its usage:
@@ -24,7 +24,7 @@ for its usage:
 They use `kaldi-native-fbank` to compute fbank features for **real-time**
 speech recognition.
 
-# Python APIs
+## Python APIs
 
 First, please install `kaldi-native-fbank` by
 
@@ -42,7 +42,7 @@ pip install kaldi-native-fbank
 
 To check that you have installed `kaldi-native-fbank` successfully, please use
 
-```
+```text
 python3 -c "import kaldi_native_fbank; print(kaldi_native_fbank.__version__)"
 ```
 
@@ -50,8 +50,8 @@ which should print the version you have installed.
 
 Please refer to
 
-  - <https://github.com/csukuangfj/kaldi-native-fbank/blob/master/kaldi-native-fbank/python/tests/test_online_fbank.py>
-  - <https://github.com/csukuangfj/kaldi-native-fbank/blob/master/kaldi-native-fbank/python/tests/test_online_mfcc.py>
+- <https://github.com/csukuangfj/kaldi-native-fbank/blob/master/kaldi-native-fbank/python/tests/test_online_fbank.py>
+- <https://github.com/csukuangfj/kaldi-native-fbank/blob/master/kaldi-native-fbank/python/tests/test_online_mfcc.py>
 
 for usages.
 

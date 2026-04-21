@@ -150,8 +150,8 @@ def test_from_dict_full_and_as_dict():
 
     d = opts.as_dict()
     assert d["htk_compat"] is True
-    assert d["mel_opts"]["num_bins"] == 80
-    assert d["frame_opts"]["samp_freq"] == 10
+    assert d["mel_opts"]["num_bins"] == 80  # type: ignore
+    assert d["frame_opts"]["samp_freq"] == 10  # type: ignore
 
     mel_opts = knf.MelBanksOptions()
     mel_opts.num_bins = 80

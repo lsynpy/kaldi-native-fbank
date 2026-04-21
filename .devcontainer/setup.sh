@@ -23,6 +23,9 @@ echo "set -x PYTHONPATH /workspaces/kaldi-native-fbank/build/lib:/workspaces/kal
 # Add C++ test binaries to path
 echo "set -x PATH /workspaces/kaldi-native-fbank/build/bin \$PATH" >> "$FISH_CONFIG"
 
+# Configure uv to use global venv
+echo "set -x UV_PROJECT_ENVIRONMENT /opt/venv" >> "$FISH_CONFIG"
+
 echo ""
 echo "✅ Dev container setup complete!"
 echo "   - Project built successfully"

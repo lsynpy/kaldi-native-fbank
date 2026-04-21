@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
 
-import sys
-
-try:
-    import kaldifeat
-except:
-    print("Please install kaldifeat first")
-    sys.exit(0)
 
 import kaldi_native_fbank as knf
-import torch
+import kaldifeat  # type: ignore
+import torch  # type: ignore
 
 
 def main():

@@ -145,7 +145,7 @@ class MelBanks {
 
   // Initialize with a 2-d weights matrix
   // @param weights Pointer to the start address of the matrix
-  // @param num_rows It equls to number of mel bins
+  // @param num_rows It equals to number of mel bins
   // @param num_cols It equals to (number of fft bins)/2+1
   MelBanks(const float *weights, int32_t num_rows, int32_t num_cols);
 

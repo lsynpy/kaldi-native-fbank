@@ -35,14 +35,16 @@ RUN pip config set global.index-url https://pypi.mirrors.ustc.edu.cn/simple/
 # Install uv
 RUN pip install uv
 
-# Configure uv to use USTC mirror
+# Configure uv to use USTC mirror and default venv
 ENV UV_INDEX_URL=https://pypi.mirrors.ustc.edu.cn/simple/
+ENV UV_PROJECT_ENVIRONMENT=/opt/venv
 
 # Create venv outside workspace (persists through workspace mount)
 RUN uv venv --seed /opt/venv && \
     uv pip install --python /opt/venv/bin/python numpy pytest cmake && \
     uv pip install --python /opt/venv/bin/python torch==2.4.0+cpu -f https://download.pytorch.org/whl/torch/ && \
-    uv pip install --python /opt/venv/bin/python kaldifeat==1.25.4.dev20240725+cpu.torch2.4.0 -f https://csukuangfj.github.io/kaldifeat/cpu.html
+    uv pip install --python /opt/venv/bin/python kaldifeat==1.25.4.dev20240725+cpu.torch2.4.0 -f https://csukuangfj.github.io/kaldifeat/cpu.html && \
+    uv pip install --python /opt/venv/bin/python pyyaml
 
 # Verify installation
 RUN /opt/venv/bin/python -c "import torch; print('torch ok:', torch.__version__)"

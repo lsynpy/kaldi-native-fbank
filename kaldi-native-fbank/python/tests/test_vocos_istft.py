@@ -11,7 +11,7 @@ import kaldi_native_fbank as knf
 """
 MIT License
 
-Copyright (c) 2023 Charactr Inc.
+Copyright (c) 2023 Character Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+
+
 class ISTFT(nn.Module):
     """
     Custom implementation of ISTFT since torch.istft doesn't allow custom padding (other than `center=True`) with
@@ -70,7 +72,9 @@ class ISTFT(nn.Module):
         """
         if self.padding == "center":
             # Fallback to pytorch native implementation
-            return torch.istft(spec, self.n_fft, self.hop_length, self.win_length, self.window, center=True)
+            return torch.istft(
+                spec, self.n_fft, self.hop_length, self.win_length, self.window, center=True
+            )
         elif self.padding == "same":
             pad = (self.win_length - self.hop_length) // 2
         else:
@@ -86,13 +90,19 @@ class ISTFT(nn.Module):
         # Overlap and Add
         output_size = (T - 1) * self.hop_length + self.win_length
         y = torch.nn.functional.fold(
-            ifft, output_size=(1, output_size), kernel_size=(1, self.win_length), stride=(1, self.hop_length),
+            ifft,
+            output_size=(1, output_size),
+            kernel_size=(1, self.win_length),
+            stride=(1, self.hop_length),
         )[:, 0, 0, pad:-pad]
 
         # Window envelope
         window_sq = self.window.square().expand(1, T, -1).transpose(1, 2)
         window_envelope = torch.nn.functional.fold(
-            window_sq, output_size=(1, output_size), kernel_size=(1, self.win_length), stride=(1, self.hop_length),
+            window_sq,
+            output_size=(1, output_size),
+            kernel_size=(1, self.win_length),
+            stride=(1, self.hop_length),
         ).squeeze()[pad:-pad]
 
         # Normalize
@@ -103,8 +113,8 @@ class ISTFT(nn.Module):
 
 
 def test_vocos_istft_impl(num_frames=768, n_fft=1024, hop_length=256, win_length=1024):
-    real = torch.randn((1, n_fft//2+1, num_frames))
-    imag = torch.randn((1, n_fft//2+1, num_frames))
+    real = torch.randn((1, n_fft // 2 + 1, num_frames))
+    imag = torch.randn((1, n_fft // 2 + 1, num_frames))
     spec = torch.complex(real, imag)
     vocos_istft = ISTFT(n_fft, hop_length, win_length, padding="same")
     vocos_out = vocos_istft(spec)
@@ -145,8 +155,11 @@ def test_vocos_istft_impl(num_frames=768, n_fft=1024, hop_length=256, win_length
         knf_out,
     )
 
-    print(f"Passed. num_frames={num_frames}, n_fft={n_fft}, hop_length={hop_length}, win_length={win_length}, pad(vocos-knf)={pad}")
+    print(
+        f"Passed. num_frames={num_frames}, n_fft={n_fft}, hop_length={hop_length}, win_length={win_length}, pad(vocos-knf)={pad}"
+    )
     print("=" * 30)
+
 
 def test_vocos_istft():
     torch.manual_seed(20250428)
@@ -157,7 +170,9 @@ def test_vocos_istft():
     for num_frames in num_frames_list:
         for n_fft in n_fft_list:
             for hop in hop_list:
-                test_vocos_istft_impl(num_frames=num_frames, n_fft=n_fft, hop_length=hop, win_length=n_fft)
+                test_vocos_istft_impl(
+                    num_frames=num_frames, n_fft=n_fft, hop_length=hop, win_length=n_fft
+                )
 
 
 if __name__ == "__main__":

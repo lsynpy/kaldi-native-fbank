@@ -1,11 +1,10 @@
 # Copyright (c)  2021  Xiaomi Corporation (author: Fangjun Kuang)
 
-import glob
 import os
 import platform
-import shutil
 import sys
 from pathlib import Path
+from typing import Optional
 
 import setuptools
 from setuptools.command.build_ext import build_ext
@@ -41,7 +40,7 @@ try:
 
 
 except ImportError:
-    bdist_wheel = None
+    bdist_wheel: Optional[type] = None
 
 
 def cmake_extension(name, *args, **kwargs) -> setuptools.Extension:
@@ -84,23 +83,17 @@ class BuildExtension(build_ext):
                 cmake --build {self.build_temp} --target install --config Release -- -m
             """
             print(f"build command is:\n{build_cmd}")
-            ret = os.system(
-                f"cmake {cmake_args} -B {self.build_temp} -S {kaldi_native_fbank_dir}"
-            )
+            ret = os.system(f"cmake {cmake_args} -B {self.build_temp} -S {kaldi_native_fbank_dir}")
             if ret != 0:
                 raise Exception("Failed to configure kaldi_native_fbank")
 
-            ret = os.system(
-                f"cmake --build {self.build_temp} --target install --config Release -- -m"
-            )
+            ret = os.system(f"cmake --build {self.build_temp} --target install --config Release -- -m")
             if ret != 0:
                 raise Exception("Failed to install kaldi_native_fbank")
         else:
             if make_args == "" and system_make_args == "":
                 print("For fast compilation, run:")
-                print(
-                    'export KALDI_NATIVE_FBANK_MAKE_ARGS="-j"; python setup.py install'
-                )
+                print('export KALDI_NATIVE_FBANK_MAKE_ARGS="-j"; python setup.py install')
 
             build_cmd = f"""
                 cd {self.build_temp}

@@ -1,22 +1,20 @@
 # This file is from
 # https://github.com/acts-project/acts/blob/main/CI/iwyu/filter.py
-import sys
-import yaml
-import re
 import argparse
+import re
+import sys
 from collections import namedtuple
 
+import yaml
 
-Config = namedtuple(
-    "Config", ["remove_lines", "replace_lines", "ignore_files"], defaults=[[], [], []]
-)
+Config = namedtuple("Config", ["remove_lines", "replace_lines", "ignore_files"], defaults=[[], [], []])
 
 
 class State:
     skip_file: bool = False
 
 
-def parse_config(config: Config):
+def parse_config(config: dict):
     remove_lines = []
     for s in config["remove_lines"]:
         remove_lines.append(re.compile(s))

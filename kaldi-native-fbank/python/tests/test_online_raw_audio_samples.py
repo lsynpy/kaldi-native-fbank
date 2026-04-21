@@ -24,9 +24,7 @@ def main():
     for i in range(raw_audio_samples.num_frames_ready):
         f = raw_audio_samples.get_frame(i)
         f = np.array(f)
-        expected = (
-            np.arange(samples_per_frame, dtype=np.float32) + samples_per_frame * i
-        )
+        expected = np.arange(samples_per_frame, dtype=np.float32) + samples_per_frame * i
         assert (f - expected).sum() == 0, (f, expected)
 
 
