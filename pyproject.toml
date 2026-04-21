@@ -1,0 +1,45 @@
+[project]
+name = "kaldi-native-fbank"
+version = "1.22.3"
+description = "Kaldi Native Fbank - A lightweight, cross-platform speech feature extraction library"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "Fangjun Kuang", email = "csukuangfj@gmail.com"}
+]
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: C++",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: Apache Software License",
+]
+dependencies = [
+    "numpy",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/csukuangfj/kaldi-native-fbank"
+Repository = "https://github.com/csukuangfj/kaldi-native-fbank"
+
+[build-system]
+requires = ["setuptools>=42", "wheel", "cmake>=3.18"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["kaldi-native-fbank/python/tests"]
+pythonpath = ["kaldi-native-fbank/python"]
+
+[tool.uv]
+index-url = "https://pypi.mirrors.ustc.edu.cn/simple/"

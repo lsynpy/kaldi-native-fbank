@@ -1,0 +1,20 @@
+{
+  "name": "kaldi-native-fbank",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "C_Cpp.default.compileCommands": "${workspaceFolder}/compile_commands.json",
+        "C_Cpp.intelliSenseEngine": "disabled",
+        "cmake.buildDirectory": "${workspaceFolder}/build",
+        "python.defaultInterpreterPath": "/workspaces/kaldi-native-fbank/.venv/bin/python",
+        "terminal.integrated.defaultProfile.linux": "fish"
+      }
+    }
+  },
+  "remoteUser": "root",
+  "features": {},
+  "postCreateCommand": "bash .devcontainer/setup.sh"
+}
