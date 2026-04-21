@@ -3,10 +3,8 @@ name = "kaldi-native-fbank"
 version = "1.22.3"
 description = "Kaldi Native Fbank - A lightweight, cross-platform speech feature extraction library"
 readme = "README.md"
-license = {text = "Apache-2.0"}
-authors = [
-    {name = "Fangjun Kuang", email = "csukuangfj@gmail.com"}
-]
+license = { text = "Apache-2.0" }
+authors = [{ name = "Fangjun Kuang", email = "csukuangfj@gmail.com" }]
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: C++",
@@ -26,12 +24,11 @@ dependencies = [
     "pyyaml",
     "pytest",
     "torch==2.4.0+cpu",
-]
-
-[project.optional-dependencies]
-dev = [
     "kaldifeat==1.25.4.dev20240725+cpu.torch2.4.0",
-    "pytest>=7.0",
+    "ruff",
+    "ty",
+    "typos",
+    "pre-commit-hooks",
 ]
 
 [project.urls]

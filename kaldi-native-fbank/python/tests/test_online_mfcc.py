@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import kaldi_native_fbank as knf
-import kaldifeat  # type: ignore
-import torch  # type: ignore
+import kaldifeat
+import torch
 
 
 def test_online_mfcc():

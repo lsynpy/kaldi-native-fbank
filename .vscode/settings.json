@@ -1,2 +1,15 @@
 {
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/.claude": true,
+    "**/.pytest_cache": true,
+    "**/.rumdl_cache": true,
+    "**/*.egg-info": true,
+    "**/build": true,
+    "**/LICENSE": true,
+    "**/Thumbs.db": true
+  }
 }
